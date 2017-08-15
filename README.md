@@ -1,5 +1,5 @@
 # Fetch HOC Redux
-Higher Order Component for fetching with Redux integration.
+Simple Fetching Higher Order Component with Redux integration. It will caches your fetch automatically.
 
 ## Installation
 **NPM:**
@@ -14,7 +14,7 @@ yarn add fetch-hoc-redux
 
 Import `fetchHOCReducer` to your Redux setup:
 ```es6
-import {createStore} from 
+import {createStore} from
 import {fetchHOCReducer} from 'fetch-hoc-redux';
 
 // specify here or in combineReducers
@@ -67,3 +67,5 @@ export default fetchHOC(URL_2)(WrapperComponent)
 | Prop    | Type            | Description                                                                |
 | ------- | --------------- | -------------------------------------------------------------------------- |
 | data    | Array or Object | Fetched data results, will be in array form if multiple endpoints are used |
+| isLoading | boolean |
+| isSuccess | boolean |
