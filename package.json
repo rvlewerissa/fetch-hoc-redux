@@ -1,0 +1,52 @@
+{
+  "name": "fetch-hoc-redux",
+  "version": "1.0.0",
+  "description": "Higher Order Component for fetching with Redux integration.",
+  "main": "dist/main.js",
+  "scripts": {
+    "typecheck": "flow source/",
+    "lint": "eslint --max-warnings 0 .",
+    "jest": "jest",
+    "test": "npm run lint && npm run typecheck && npm run jest",
+    "build": "babel -d dist source --ignore '**/__tests__/**'",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvlewerissa/fetch-hoc-redux.git"
+  },
+  "keywords": [
+    "higher",
+    "order",
+    "component",
+    "hoc",
+    "fetch",
+    "redux",
+    "react",
+    "javascript"
+  ],
+  "author": "Ronaldo Vitto Lewerissa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rvlewerissa/fetch-hoc-redux/issues"
+  },
+  "homepage": "https://github.com/rvlewerissa/fetch-hoc-redux#readme",
+  "devDependencies": {
+    "babel-cli": "6",
+    "babel-eslint": "^6.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "6",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-react": "^7.2.1",
+    "react-redux": "^5.0.6"
+  },
+  "dependencies": {
+    "react": "^15.6.1"
+  }
+}
