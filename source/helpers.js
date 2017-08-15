@@ -1,3 +1,5 @@
+// @flow
+
 const ACTION_TYPE = "__FETCHER__FETCH_SUCCESSFUL";
 
 // function is binded
@@ -15,6 +17,7 @@ function action(data, endpoint) {
   return {
     type: ACTION_TYPE,
     endpoint,
+    // $FlowFixMe
     payload: JSON.parse(data._bodyInit || data)
   };
 }
