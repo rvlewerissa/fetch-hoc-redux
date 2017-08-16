@@ -8,8 +8,8 @@
     "build": "babel --copy-files -d dist source --ignore '**/__tests__/**'",
     "test": "cross-env NODE_ENV=test npm-run-all --parallel lint typecheck jest",
     "typecheck": "flow source/",
-    "lint": "eslint --max-warnings 0 .",
-    "jest": "jest",
+    "lint": "eslint --max-warnings 0 source/",
+    "jest": "jest source/",
     "prepush": "npm test",
     "prepublish": "npm run build"
   },
@@ -47,6 +47,7 @@
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-react": "^7.2.1",
     "husky": "^0.14.3",
+    "jest": "^20.0.4",
     "npm-run-all": "^4.0.2",
     "react-redux": "^5.0.6",
     "rimraf": "^2.6.1"
