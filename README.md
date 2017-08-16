@@ -37,7 +37,7 @@ let WrapperComponent = fetchHOC(URL)(YourReactComponent);
 
 ```
 
-You can also specify one to one variable mapping to set variable on the URL. It will receives state from your redux state.
+You can also specify one to one variable mapping to set variable on the URL. It will receives state from your redux state or from parent props.
 
 ```es6
 import fetchHOC from "fetch-hoc-redux";
@@ -45,16 +45,21 @@ import YourReactComponent from "./myComponent";
 import {API_KEY} from "./APIKey";
 
 let URL =
-  "https://newsapi.org/v1/articles?source=foo&apiKey=bar";
+  "https://newsapi.org/v1/articles?source=bar&apiKey=foo";
 
-let variableMapper = (state) => {
+let mapFromState = (state) => {
   return {
-    foo: state.source,
-    bar: API_KEY,
+    foo: API_KEY,
   };
 };
 
-let WrapperComponent = fetchHOC(URL, variableMapper)(YourReactComponent);
+let mapFromProps = (props) => {
+  return {
+    bar: props.source,
+  }
+}
+
+let WrapperComponent = fetchHOC(URL, mapFromState, mapFromProps)(YourReactComponent);
 ```
 
 
