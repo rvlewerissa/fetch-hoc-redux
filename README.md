@@ -14,10 +14,13 @@ yarn add fetch-hoc-redux
 
 Import `fetchHOCReducer` to your Redux setup:
 ```es6
-import {createStore} from
-import {fetchHOCReducer} from 'fetch-hoc-redux';
+import {createStore} from "redux";
+import {fetchHOCReducer} from "fetch-hoc-redux";
 
-// specify here or in combineReducers
+// specify in combineReducers
+let rootReducer = combineReducers({
+  __FETCHER__: fetchHOCReducer,
+  });
 let reduxStore = createStore(fetchHOCReducer);
 ```
 

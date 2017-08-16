@@ -67,7 +67,7 @@ export default (url: string, variableMapping: Function) => (
     }, url);
     return {
       endpoint,
-      fetchedData: state.__FETCH_DATA__[endpoint]
+      fetchedData: state.__FETCHER__[endpoint]
     };
   }
 

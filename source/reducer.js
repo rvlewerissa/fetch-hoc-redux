@@ -1,4 +1,5 @@
 // @flow
+import { combineReducers } from "redux";
 
 export function fetchHOCReducer(state: Object = {}, action: Object) {
   switch (action.type) {
@@ -12,3 +13,7 @@ export function fetchHOCReducer(state: Object = {}, action: Object) {
       return state;
   }
 }
+
+export let fetchRootReducer = combineReducers({
+  __FETCHER__: fetchHOCReducer
+});

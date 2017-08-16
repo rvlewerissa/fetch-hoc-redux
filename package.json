@@ -1,6 +1,6 @@
 {
   "name": "fetch-hoc-redux",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Higher Order Component for fetching with Redux integration.",
   "main": "dist/main.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "react-redux": "^5.0.6"
   },
   "dependencies": {
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "redux": "^3.7.2"
   }
 }
