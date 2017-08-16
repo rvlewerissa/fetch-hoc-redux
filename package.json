@@ -4,11 +4,13 @@
   "description": "Higher Order Component for fetching with Redux integration.",
   "main": "dist/main.js",
   "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "babel --copy-files -d dist source --ignore '**/__tests__/**'",
+    "test": "cross-env NODE_ENV=test npm-run-all --parallel lint typecheck jest",
     "typecheck": "flow source/",
     "lint": "eslint --max-warnings 0 .",
     "jest": "jest",
-    "test": "npm run lint && npm run typecheck && npm run jest",
-    "build": "babel -d dist source --ignore '**/__tests__/**'",
+    "prepush": "npm test",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -44,9 +46,13 @@
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-react": "^7.2.1",
-    "react-redux": "^5.0.6"
+    "husky": "^0.14.3",
+    "npm-run-all": "^4.0.2",
+    "react-redux": "^5.0.6",
+    "rimraf": "^2.6.1"
   },
   "dependencies": {
+    "cross-env": "^5.0.5",
     "react": "^15.6.1",
     "redux": "^3.7.2"
   }
