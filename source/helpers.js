@@ -3,8 +3,7 @@
 const ACTION_TYPE = "__FETCHER__FETCH_SUCCESSFUL";
 
 // function is binded
-export function fetchData() {
-  let { endpoint } = this.props;
+export function fetchData(endpoint: string) {
   fetch(endpoint)
     .then(data => {
       this.props.dispatch(action(data, endpoint));

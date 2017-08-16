@@ -8,7 +8,8 @@ type Props = {
   endpoint: string,
   fetchedData: Object,
   dispatch: (action: Object) => void,
-  data?: Object
+  data?: Object,
+  state: Object
 };
 
 type State = {
@@ -16,9 +17,11 @@ type State = {
   isSuccess: ?boolean
 };
 
-export default (url: string, variableMapping: Function) => (
-  Instance: Object
-) => {
+export default (
+  url: string,
+  mapFromState: Function,
+  mapFromProps: Function
+) => (Instance: Object) => {
   class Fetcher extends Component {
     state: State;
     props: Props;
@@ -32,7 +35,8 @@ export default (url: string, variableMapping: Function) => (
     }
 
     componentDidMount() {
-      fetchData.call(this);
+      let { endpoint } = this.props;
+      fetchData.call(this, endpoint);
     }
 
     render() {
@@ -49,8 +53,27 @@ export default (url: string, variableMapping: Function) => (
       );
     }
 
+    _getFetchedData() {
+      let { state } = this.props;
+      return state.__FETCHER__[this._getEndpoint()];
+    }
+
+    _getEndpoint() {
+      return this._mapToEndpoint();
+    }
+
+    _mapToEndpoint() {
+      let { state } = this.props;
+      let mapping = { ...mapFromState(state), ...mapFromProps(this.props) };
+      let endpoint = Object.keys(mapping).reduce((result, variable) => {
+        return result.replace(variable, mapping[variable]);
+      }, url);
+      return endpoint;
+    }
+
     _combineFetchedData() {
-      let { fetchedData, data } = this.props;
+      let { data } = this.props;
+      let fetchedData = this._getFetchedData();
       if (data) {
         return Array.isArray(data)
           ? [fetchedData, ...data]
@@ -60,16 +83,5 @@ export default (url: string, variableMapping: Function) => (
     }
   }
 
-  function mapStateToProps(state) {
-    let mapping = variableMapping(state);
-    let endpoint = Object.keys(mapping).reduce((result, variable) => {
-      return result.replace(variable, mapping[variable]);
-    }, url);
-    return {
-      endpoint,
-      fetchedData: state.__FETCHER__[endpoint]
-    };
-  }
-
-  return connect(mapStateToProps)(Fetcher);
+  return connect(state => ({ state }))(Fetcher);
 };
