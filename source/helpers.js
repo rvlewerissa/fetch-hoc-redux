@@ -1,36 +1,41 @@
 // @flow
 
-const ACTION_TYPE = "__FETCHER__FETCH_SUCCESSFUL";
+const FETCH_SUCCESSFUL = "__FETCHER__FETCH_SUCCESSFUL";
 
 // function is binded
 export function fetchData(endpoint: string) {
   fetch(endpoint)
-    .then(data => {
-      this.props.dispatch(action(data, endpoint));
-      this.setState(success());
+    .then(response => {
+      let contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        return response.json();
+      } else {
+        throw new Error("REDUX FETCH HOC: Response is not a JSON!");
+      }
     })
-    .catch(() => this.setState(error()));
+    .then(data => {
+      this.props.dispatch({
+        type: FETCH_SUCCESSFUL,
+        endpoint,
+        payload: data
+      });
+      this.setState(successState());
+    })
+    .catch(() => this.setState(errorState()));
 }
 
-function action(data, endpoint) {
-  return {
-    type: ACTION_TYPE,
-    endpoint,
-    // $FlowFixMe
-    payload: JSON.parse(data._bodyInit || data)
-  };
-}
-
-function success() {
+function successState() {
   return {
     isLoading: false,
-    isSucess: true
+    isSuccess: true
   };
 }
 
-function error() {
+function errorState() {
   return {
     isSuccess: false,
     isLoading: false
   };
 }
+
+export let voidFunction = () => ({});

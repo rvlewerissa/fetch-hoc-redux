@@ -2,10 +2,11 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchData } from "./helpers";
+import autobind from "class-autobind";
+
+import { fetchData, voidFunction } from "./helpers";
 
 type Props = {
-  endpoint: string,
   fetchedData: Object,
   dispatch: (action: Object) => void,
   data?: Object,
@@ -25,6 +26,7 @@ export default (
   class Fetcher extends Component {
     state: State;
     props: Props;
+    _endpoint: ?string;
 
     constructor() {
       super(...arguments);
@@ -32,34 +34,40 @@ export default (
         isLoading: true,
         isSuccess: null
       };
+      autobind(this);
     }
 
     componentDidMount() {
-      let { endpoint } = this.props;
-      fetchData.call(this, endpoint);
+      this._fetchData();
     }
 
     render() {
       let { ...rest } = this.props;
       let { isLoading, isSuccess } = this.state;
-      let data = this._combineFetchedData();
+      let data = this._getFetchedData();
       return (
         <Instance
+          {...rest}
           data={data}
           isLoading={isLoading}
           isSuccess={isSuccess}
-          {...rest}
+          refetch={this._fetchData}
         />
       );
     }
 
+    _fetchData() {
+      fetchData.call(this, this._getEndpoint());
+    }
+
     _getFetchedData() {
       let { state } = this.props;
-      return state.__FETCHER__[this._getEndpoint()];
+      let currFetchedData = state.__FETCHER__[this._getEndpoint()];
+      return this._combineFetchedData(currFetchedData);
     }
 
     _getEndpoint() {
-      return this._mapToEndpoint();
+      return this._endpoint || this._mapToEndpoint();
     }
 
     _mapToEndpoint() {
@@ -71,17 +79,20 @@ export default (
       return endpoint;
     }
 
-    _combineFetchedData() {
+    _combineFetchedData(currFetchedData: Object) {
       let { data } = this.props;
-      let fetchedData = this._getFetchedData();
-      if (data) {
+      let prevFetchedData = data;
+      if (prevFetchedData) {
         return Array.isArray(data)
-          ? [fetchedData, ...data]
-          : [fetchedData, data];
+          ? [currFetchedData, ...data]
+          : [currFetchedData, data];
       }
-      return fetchedData;
+      return currFetchedData;
     }
   }
+
+  mapFromState = mapFromState || voidFunction;
+  mapFromProps = mapFromProps || voidFunction;
 
   return connect(state => ({ state }))(Fetcher);
 };

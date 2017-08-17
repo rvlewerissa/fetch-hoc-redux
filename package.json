@@ -1,6 +1,6 @@
 {
   "name": "fetch-hoc-redux",
-  "version": "2.0.1",
+  "version": "1.0.41",
   "description": "Higher Order Component for fetching with Redux integration.",
   "main": "dist/main.js",
   "scripts": {
@@ -53,6 +53,7 @@
     "rimraf": "^2.6.1"
   },
   "dependencies": {
+    "class-autobind": "^0.1.4",
     "cross-env": "^5.0.5",
     "react": "^15.6.1",
     "redux": "^3.7.2"
