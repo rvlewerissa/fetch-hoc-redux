@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/rvlewerissa/fetch-hoc-redux.svg?branch=master)](https://travis-ci.org/rvlewerissa/fetch-hoc-redux)
 # Fetch HOC Redux
 Simple Fetching Higher Order Component with Redux integration. It will caches your fetch automatically.
 
