@@ -1,6 +1,14 @@
 [![Build Status](https://travis-ci.org/rvlewerissa/fetch-hoc-redux.svg?branch=master)](https://travis-ci.org/rvlewerissa/fetch-hoc-redux)
+[![Dependency Status](https://gemnasium.com/rvlewerissa/fetch-hoc-redux.svg)](https://gemnasium.com/rvlewerissa/fetch-hoc-redux)
+
 # Fetch HOC Redux
 Simple Fetching Higher Order Component with Redux integration. It will caches your fetch automatically.
+
+[![NPM](https://nodei.co/npm/fetch-hoc-redux.png)](https://nodei.co/npm/fetch-hoc-redux/)
+
+* [Installation](https://github.com/rvlewerissa/fetch-hoc-redux#installation)
+* [Setting Up](https://github.com/rvlewerissa/fetch-hoc-redux#setting-up)
+* [Additional Features](https://github.com/rvlewerissa/fetch-hoc-redux#additional-features)
 
 ## Installation
 **NPM:**
@@ -11,7 +19,7 @@ npm install fetch-hoc-redux --save
 ```
 yarn add fetch-hoc-redux
 ```
-## Usage
+## Setting Up
 
 ### Setup Reducer
 Import `fetchHOCReducer` to your Redux setup:
@@ -40,6 +48,7 @@ let WrapperComponent = fetchHOC(URL)(YourReactComponent);
 
 ```
 
+## Additional Features
 ### Variable To Endpoint Mapping
 You can also specify one to one variable mapping to set variable on the URL. It will receives state from your redux state or from parent props.
 
